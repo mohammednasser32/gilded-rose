@@ -12,12 +12,13 @@ if ARGV.size > 0
 end
 
 gilded_rose = GildedRose.new items
-(0...days).each do |day|
-  puts "-------- day #{day} --------"
-  puts "name, sellIn, quality"
-  items.each do |item|
-    puts item
+File.open("truth.txt", "w") do |f|
+  (0...days).each do |day|
+    data = []
+    items.each do |item|
+      data << ["Day: #{day}", item.name, item.sell_in, item.quality]
+    end
+    f.write("#{data.to_s}\n")
+    gilded_rose.update_quality
   end
-  puts ""
-  gilded_rose.update_quality
 end
